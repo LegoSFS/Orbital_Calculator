@@ -1,108 +1,73 @@
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import java.awt.*;
-import java.awt.event.ActionListener;
+import javax.swing.;
+import java.awt.;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.IOException;
 
 public class Main extends JFrame {
 
-    //private final JButton throttle = new JButton("exit");
-    //private final JButton engine = new JButton("ENGINE OFF");
-    //private final JButton abs = new JButton("ABS: ON");
-   // private final JButton run = new JButton("START");
-    //private final JButton reset = new JButton("RESET");
-    //private final JButton turnLeft = new JButton("<");
-    //private final JButton turnRight = new JButton(">");
+private BufferedImage background;
+private BufferedImage futureButton;
+private BufferedImage exitButton;
 
-    MouseListener ml = new MouseListener() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            System.out.println(e.getPoint().y+" "+e.getPoint().x);
-            if(((e.getPoint().x>1200)&&(e.getPoint().y>50))&&((e.getPoint().x<1264)&&(e.getPoint().y<114)))
-            {
-                System.exit(0);
-            }
-        }
+public Main() {
 
-        @Override
-        public void mousePressed(MouseEvent e) {
+    try {
+        background = ImageIO.read(
+                new File("src/sprites/backgroung_main.jpg"));
 
-        }
+        startButton = ImageIO.read(
+                new File("src/sprites/button-layout.png"));
 
-        @Override
-        public void mouseReleased(MouseEvent e) {
+        exitButton = ImageIO.read(
+                new File("src/sprites/exit-button.png"));
 
-        }
+    } catch (IOException e) {
+        throw new RuntimeException("Ошибка загрузки изображений", e);
+    }
 
-        @Override
-        public void mouseEntered(MouseEvent e) {
+    setTitle("Orbital Calculator");
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setSize(1280, 720);
+    setResizable(false);
+    setLocationRelativeTo(null);
 
-        }
+    JPanel panel = new JPanel() {
 
-        @Override
-        public void mouseExited(MouseEvent e) {
-
+        @id86240433 (@Override)
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(background, 0, 0, this);
+            g.drawImage(startButton, 560, 400, this);
+            g.drawImage(exitButton, 1200, 50, this);
         }
     };
 
-    Main()
-    {
-        try {
-            background = ImageIO.read(new File("C:/Users/ivanovga.28/java/Orbital_Calculator/src/sprites/backgroung_main.jpg"));
-            button_lay_1 = ImageIO.read(new File("C:/Users/ivanovga.28/java/Orbital_Calculator/src/sprites/button-layout.png"));
-            exit_button = ImageIO.read(new File("C:/Users/ivanovga.28/java/Orbital_Calculator/src/sprites/exit-button.png"));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+    panel.addMouseListener(new MouseAdapter() {
+
+        @id86240433 (@Override)
+        public void mouseClicked(MouseEvent e) {
+            int x = e.getX();
+            int y = e.getY();
+            if (x >= 1200 && x <= 1264 &&
+                y >= 50 && y <= 114) {
+
+                System.exit(0);
+            }
         }
-        setVisible(true);
-        setTitle("Orbital Calculator");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1280, 720);
-        //add(throttle);
-        //add(engine);
-        //add(abs);
-        //add(run);
-        //add(reset);
-        //add(turnLeft);
-        //add(turnRight);
-        addMouseListener(ml);
+    });
 
-    }
-    public BufferedImage background;
-    public BufferedImage button_lay_1;
-    public BufferedImage exit_button;
+    setContentPane(panel);
+    setVisible(true);
+}
 
-    public void paint(Graphics g)
-    {
-        super.paint(g);
-        g.drawLine(400, 50, 450, 200);  //1
-        g.drawLine(450, 200, 650, 230); //2
-        g.drawLine(650, 230, 480, 340); //3
-        g.drawLine(480, 340, 540, 520); //4
-        g.drawLine(540, 520, 400, 440); //5
-        g.drawLine( 400, 440,260, 520); //6
-        g.drawLine(260, 520, 300, 340); //7
-        g.drawLine(300, 340, 150,230); //8
-        g.drawLine(150,230, 350, 200); //9
-        g.drawLine(400, 50, 350, 200);  //1
-        g.drawImage(background, 0, 0, this);
-        g.drawImage(button_lay_1, 560, 400, this);
-        g.drawImage(exit_button, 1200, 50, this);
+public static void main(String[] args) {
 
-    }
-
-    public static void main (String[] args)
-    {
-        new Main();
-    }
-
-
-
+    SwingUtilities.invokeLater(Main::new);
 
 }
 
+}
