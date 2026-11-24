@@ -1,5 +1,5 @@
-import javax.swing.;
-import java.awt.;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -32,8 +32,7 @@ public Main() {
     volumeSlider.setVisible(false);
 
     JPanel panel = new JPanel() {
-
-        @id86240433 (@Override)
+        @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             if (currentScene == 0) {
@@ -45,7 +44,7 @@ public Main() {
                 g.setFont(new Font("Arial", Font.BOLD, 24));
                 FontMetrics fm = g.getFontMetrics();
                 int tX = 560 + (buttonLayout.getWidth() - fm.stringWidth("Играть")) / 2;
-                int ttY = 400 + (buttonLayout.getHeight() + fm.getAscent()) / 2;
+                int tY = 400 + (buttonLayout.getHeight() + fm.getAscent()) / 2;
                 g.drawString("Играть", textX, textY);
                 int settingsX = 560 + (buttonLayout.getWidth() - fm.stringWidth("Настройки")) / 2;
                 int settingsY = 500 + (buttonLayout.getHeight() + fm.getAscent()) / 2;
@@ -79,8 +78,7 @@ public Main() {
     panel.setLayout(null);
     panel.add(volumeSlider);
     panel.addMouseListener(new MouseAdapter() {
-
-        @id86240433 (@Override)
+        @Override
         public void mouseClicked(MouseEvent e) {
 
             int x = e.getX();
